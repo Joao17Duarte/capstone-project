@@ -74,11 +74,23 @@ export default function App() {
             filterByGenres={filterByGenres}
             movies={fetchMovies}
             genres={genres}
+            currentUser={userSelection}
+            onYesWatch={handleYesWatch}
           />
         </Route>
       </Switch>
     </div>
   )
+
+  function handleYesWatch(movie, currentUser) {
+    const player = players.find(player => player.name === currentUser.name)
+    const index = players.indexOf(player)
+    setPlayers([
+      ...players.slice(0, index),
+      { ...player, movies: [...player.movies, movie] },
+      ...players.slice(index + 1),
+    ])
+  }
 
   function handleSetGenre(genre) {
     if (filterByGenres.includes(genre)) {
@@ -88,13 +100,13 @@ export default function App() {
     }
   }
 
-  function addPlayer({ nameOfPlayer }) {
-    setPlayers([{ name: nameOfPlayer }, ...players])
+  function addPlayer(player) {
+    setPlayers([{ ...player, movies: [] }, ...players])
   }
 
-  function handleSelection(nameOfPlayer) {
-    setUserSelection([{ name: nameOfPlayer }])
-    console.log('clicked', nameOfPlayer)
+  function handleSelection(name) {
+    const currentUser = players.find(player => player.name === name)
+    setUserSelection(currentUser)
   }
 
   function handleDelete(index) {
