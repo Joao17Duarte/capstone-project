@@ -6,8 +6,8 @@ export default function Card({
   image,
   genresMovie,
   allGenres,
-  handleNoWatch,
-  onYesWatch,
+  onRemoveFromWatchlist,
+  onAddToWatchlist,
 }) {
   const IMG_API = 'https://image.tmdb.org/t/p/'
 
@@ -26,8 +26,8 @@ export default function Card({
           ))}
         </GenreWrapper>
         <ButtonWrapper>
-          <NoButton onClick={handleNoWatch}>NO</NoButton>
-          <YesButton onClick={onYesWatch}>YES</YesButton>
+          <NoButton onClick={onRemoveFromWatchlist}>NO</NoButton>
+          <YesButton onClick={onAddToWatchlist}>YES</YesButton>
         </ButtonWrapper>
       </CardGrid>
     </>

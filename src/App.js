@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
-
+import { v4 as uuidv4 } from 'uuid'
 import SearchPage from './components/SearchPage'
 import FilteredMoviesPage from './components/FilteredMoviesPage'
 import HomePage from './components/HomePage'
+import ResultsPage from './components/ResultsPage'
 
 export default function App() {
   const [players, setPlayers] = useState([])
@@ -11,7 +12,7 @@ export default function App() {
   const [genres, setGenres] = useState([])
   const [filterByGenres, setFilterByGenres] = useState([])
 
-  const [userSelection, setUserSelection] = useState('')
+  const [currentUser, setCurrentUser] = useState('')
 
   const { REACT_APP_TMDB_API_KEY } = process.env
   let MOVIE_API
@@ -65,7 +66,7 @@ export default function App() {
             genres={genres}
             onSetGenre={handleSetGenre}
             filterByGenre={filterByGenres}
-            userSelection={userSelection}
+            currentUser={currentUser}
           />
         </Route>
 
@@ -74,22 +75,45 @@ export default function App() {
             filterByGenres={filterByGenres}
             movies={fetchMovies}
             genres={genres}
-            currentUser={userSelection}
-            onYesWatch={handleYesWatch}
+            currentUser={currentUser}
+            onAddToWatchlist={handleAddToWatchlist}
+            onRemoveFromWatchlist={handleRemoveFromWatchlist}
           />
+        </Route>
+        <Route path="/results">
+          <ResultsPage players={players} />
         </Route>
       </Switch>
     </div>
   )
 
-  function handleYesWatch(movie, currentUser) {
+  function handleAddToWatchlist(movie, currentUser) {
     const player = players.find(player => player.name === currentUser.name)
     const index = players.indexOf(player)
-    setPlayers([
-      ...players.slice(0, index),
-      { ...player, movies: [...player.movies, movie] },
-      ...players.slice(index + 1),
-    ])
+    const isMovieInState = filterByGenres.filter(
+      item => item[movie.title] === movie.id
+    )
+    //=== this if statement should look for ===
+    // if is already a movie in useState
+    // give a ALERT
+    // else
+    // add movie to the useState
+
+    if (isMovieInState === false) {
+      alert('this movie is already added')
+    } else {
+      setPlayers([
+        ...players.slice(0, index),
+        { ...player, movies: [...player.movies, movie] },
+        ...players.slice(index + 1),
+      ])
+    }
+  }
+  // ========= End of If statement ==============
+
+  function handleRemoveFromWatchlist(movie, currentUser) {
+    //randomize or remove movie from WatchList --- CODE FOR FUTURE REFERENCE
+    console.log('do not want to see this movie')
   }
 
   function handleSetGenre(genre) {
@@ -101,12 +125,12 @@ export default function App() {
   }
 
   function addPlayer(player) {
-    setPlayers([{ ...player, movies: [] }, ...players])
+    setPlayers([{ id: uuidv4(), ...player, movies: [] }, ...players])
   }
 
   function handleSelection(name) {
     const currentUser = players.find(player => player.name === name)
-    setUserSelection(currentUser)
+    setCurrentUser(currentUser)
   }
 
   function handleDelete(index) {

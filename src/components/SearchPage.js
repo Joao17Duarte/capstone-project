@@ -8,12 +8,12 @@ export default function SearchPage({
   genres,
   onSetGenre,
   filterByGenre,
-  userSelection,
+  currentUser,
 }) {
   return (
     <>
       <Header name="Movie Picker" />
-      <TagName>{userSelection.name}</TagName>
+      <TagName>{currentUser.name}</TagName>
       <FilterTag
         genres={genres}
         onSetGenre={onSetGenre}

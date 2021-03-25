@@ -1,3 +1,4 @@
+// import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from './Button/Button'
@@ -8,15 +9,28 @@ export default function FilteredMoviesPage({
   movies,
   filterByGenres,
   genres,
-  onYesWatch,
+  onAddToWatchlist,
+  onRemoveFromWatchlist,
   currentUser,
+  // onFilteredMovies,
+  // filterMovies,
 }) {
+  // THIS COMMENTED OUT CODE IS TO TRY RANDOMIZE SOME SUGGESTIONS OF MOVIES (DOESN'T WORK)
+
+  // const [suggestions, setSuggestions] = useState(randomMovies())
+
+  // function randomMovies() {
+  //   const randomFilteredMovies = filterMovies.sort(() => 0.5 - Math.random())
+  //   let randomizedMovies = randomFilteredMovies.slice(0, 5)
+  //   return randomizedMovies
+  // }
+
   const filteredMovies = movies.filter(
     movie =>
       filterByGenres.length === 0 ||
       movie.genre_ids.some(g => filterByGenres.includes(g))
   )
-  console.log(filteredMovies)
+
   return (
     <>
       <FilterWrapper>
@@ -36,7 +50,10 @@ export default function FilteredMoviesPage({
             genresMovie={movie.genre_ids}
             allGenres={genres}
             key={movie.id}
-            onYesWatch={() => onYesWatch(movie, currentUser)}
+            onAddToWatchlist={() => onAddToWatchlist(movie, currentUser)}
+            onRemoveFromWatchlist={() =>
+              onRemoveFromWatchlist(movie, currentUser)
+            }
           />
         ))}
       </FilterWrapper>
