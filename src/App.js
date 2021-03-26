@@ -90,16 +90,10 @@ export default function App() {
   function handleAddToWatchlist(movie, currentUser) {
     const player = players.find(player => player.name === currentUser.name)
     const index = players.indexOf(player)
-    const isMovieInState = filterByGenres.filter(
-      item => item[movie.title] === movie.id
-    )
-    //=== this if statement should look for ===
-    // if is already a movie in useState
-    // give a ALERT
-    // else
-    // add movie to the useState
 
-    if (isMovieInState === false) {
+    const isMovieInState = player.movies.includes(movie)
+
+    if (isMovieInState) {
       alert('this movie is already added')
     } else {
       setPlayers([
@@ -107,9 +101,9 @@ export default function App() {
         { ...player, movies: [...player.movies, movie] },
         ...players.slice(index + 1),
       ])
+      filterByGenres.filter(el => el !== movie)
     }
   }
-  // ========= End of If statement ==============
 
   function handleRemoveFromWatchlist(movie, currentUser) {
     //randomize or remove movie from WatchList --- CODE FOR FUTURE REFERENCE

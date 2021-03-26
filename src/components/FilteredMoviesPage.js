@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from './Button/Button'
@@ -12,18 +11,16 @@ export default function FilteredMoviesPage({
   onAddToWatchlist,
   onRemoveFromWatchlist,
   currentUser,
-  // onFilteredMovies,
-  // filterMovies,
 }) {
-  // THIS COMMENTED OUT CODE IS TO TRY RANDOMIZE SOME SUGGESTIONS OF MOVIES (DOESN'T WORK)
+  // THIS COMMENTED OUT CODE IS TO TRY RANDOMIZE SOME SUGGESTIONS OF MOVIES
 
-  // const [suggestions, setSuggestions] = useState(randomMovies())
-
-  // function randomMovies() {
-  //   const randomFilteredMovies = filterMovies.sort(() => 0.5 - Math.random())
-  //   let randomizedMovies = randomFilteredMovies.slice(0, 5)
-  //   return randomizedMovies
-  // }
+  function randomMovies(movieArray) {
+    const randomFilteredMovies = movieArray.sort(
+      () => 0.5 - Math.floor(Math.random() * 5)
+    )
+    let randomizedMovies = randomFilteredMovies.slice(0, 5)
+    return randomizedMovies
+  }
 
   const filteredMovies = movies.filter(
     movie =>
@@ -43,7 +40,7 @@ export default function FilteredMoviesPage({
             Search Page
           </MenuButton>
         </ButtonWrapper>
-        {filteredMovies.map(movie => (
+        {randomMovies(filteredMovies).map(movie => (
           <Card
             title={movie.title}
             image={movie.poster_path}
