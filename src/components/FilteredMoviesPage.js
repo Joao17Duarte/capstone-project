@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import Button from './Button/Button'
 import Card from './Card/Card'
 import Header from './Header/Header'
@@ -12,16 +12,6 @@ export default function FilteredMoviesPage({
   onRemoveFromWatchlist,
   currentUser,
 }) {
-  // THIS COMMENTED OUT CODE IS TO TRY RANDOMIZE SOME SUGGESTIONS OF MOVIES
-
-  function randomMovies(movieArray) {
-    const randomFilteredMovies = movieArray.sort(
-      () => 0.5 - Math.floor(Math.random() * 5)
-    )
-    let randomizedMovies = randomFilteredMovies.slice(0, 5)
-    return randomizedMovies
-  }
-
   const filteredMovies = movies.filter(
     movie =>
       filterByGenres.length === 0 ||
@@ -39,6 +29,9 @@ export default function FilteredMoviesPage({
           <MenuButton as={Link} to="/search">
             Search Page
           </MenuButton>
+          {/* <NextButton hidden={currentUser.movies.length <= 3}>
+            Next User
+          </NextButton> */}
         </ButtonWrapper>
         {randomMovies(filteredMovies).map(movie => (
           <Card
@@ -47,8 +40,8 @@ export default function FilteredMoviesPage({
             genresMovie={movie.genre_ids}
             allGenres={genres}
             key={movie.id}
-            onAddToWatchlist={() => onAddToWatchlist(movie, currentUser)}
-            onRemoveFromWatchlist={() =>
+            onAddToWatchlist={e => onAddToWatchlist(movie, currentUser)}
+            onRemoveFromWatchlist={e =>
               onRemoveFromWatchlist(movie, currentUser)
             }
           />
@@ -56,6 +49,14 @@ export default function FilteredMoviesPage({
       </FilterWrapper>
     </>
   )
+
+  function randomMovies(movieArray) {
+    const randomFilteredMovies = movieArray.sort(
+      () => 0.5 - Math.floor(Math.random() * 5)
+    )
+    let randomizedMovies = randomFilteredMovies.slice(0, 5)
+    return randomizedMovies
+  }
 }
 
 const FilterWrapper = styled.div`
@@ -72,3 +73,7 @@ const MenuButton = styled(Button)`
   border-radius: 10px;
   padding: 10px;
 `
+// const NextButton = styled(Button)`
+//   color: hotpink;
+//   background-color: #6d676e;
+// `

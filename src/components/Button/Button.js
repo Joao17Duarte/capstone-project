@@ -13,4 +13,3 @@ export default styled.button`
   font-family: inherit;
   margin: 2px 5px;
 `
-//type of orange -- ff5511

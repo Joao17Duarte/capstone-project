@@ -11,8 +11,7 @@ export default function App() {
   const [fetchMovies, setFetchMovies] = useState([])
   const [genres, setGenres] = useState([])
   const [filterByGenres, setFilterByGenres] = useState([])
-
-  const [currentUser, setCurrentUser] = useState('')
+  const [currentUser, setCurrentUser] = useState(players)
 
   const { REACT_APP_TMDB_API_KEY } = process.env
   let MOVIE_API
@@ -91,21 +90,27 @@ export default function App() {
     const player = players.find(player => player.name === currentUser.name)
     const index = players.indexOf(player)
 
-    const isMovieInState = player.movies.includes(movie)
+    const isMovieInState = player.movies.includes(movie.title)
 
     if (isMovieInState) {
       alert('this movie is already added')
     } else {
       setPlayers([
         ...players.slice(0, index),
-        { ...player, movies: [...player.movies, movie] },
+        { ...player, movies: [...player.movies, movie.title] },
         ...players.slice(index + 1),
       ])
-      filterByGenres.filter(el => el !== movie)
     }
   }
 
   function handleRemoveFromWatchlist(movie, currentUser) {
+    const player = players.find(player => player.name === currentUser.name)
+    const index = players.indexOf(player)
+    setFilterByGenres([
+      ...filterByGenres.slice(0, index),
+      { ...player, movies: [...player.movies, movie.title] },
+      ...filterByGenres.slice(index + 1),
+    ])
     //randomize or remove movie from WatchList --- CODE FOR FUTURE REFERENCE
     console.log('do not want to see this movie')
   }
@@ -130,4 +135,8 @@ export default function App() {
   function handleDelete(index) {
     setPlayers([...players.slice(0, index), ...players.slice(index + 1)])
   }
+
+  // function handleComparison() {
+  //   players.forEach(movie => movie.filter(players.movies))
+  // }
 }
