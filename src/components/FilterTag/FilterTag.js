@@ -1,11 +1,16 @@
 import styled from 'styled-components/macro'
 import Button from '../Button/Button'
 
-export default function FilterTag({ onSetGenre, genres, filterByGenre }) {
+export default function FilterTag({
+  onSetGenre,
+  genres,
+  filterByGenre,
+  handleGenreReset,
+}) {
   return (
     <>
       <GenreTitle>Pick your Genre(s):</GenreTitle>
-      <TagsWrapper>
+      <TagsWrapper handleGenreReset={handleGenreReset}>
         {genres.map((genre, index) => (
           <Button
             active={filterByGenre.includes(genre.id)}

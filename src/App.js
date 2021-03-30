@@ -45,7 +45,7 @@ export default function App() {
   }, [GENRE_API])
 
   return (
-    <div>
+    <>
       <Switch>
         <Route exact path="/">
           <HomePage
@@ -66,6 +66,7 @@ export default function App() {
             onSetGenre={handleSetGenre}
             filterByGenre={filterByGenres}
             currentUser={currentUser}
+            onHandleGenreReset={handleGenreReset}
           />
         </Route>
 
@@ -75,15 +76,20 @@ export default function App() {
             movies={fetchMovies}
             genres={genres}
             currentUser={currentUser}
+            players={players}
             onAddToWatchlist={handleAddToWatchlist}
             onRemoveFromWatchlist={handleRemoveFromWatchlist}
+            onHandleGenreReset={handleGenreReset}
           />
         </Route>
         <Route path="/results">
-          <ResultsPage players={players} />
+          <ResultsPage
+            players={players}
+            onhandleComparison={handleComparison}
+          />
         </Route>
       </Switch>
-    </div>
+    </>
   )
 
   function handleAddToWatchlist(movie, currentUser) {
@@ -100,17 +106,18 @@ export default function App() {
         { ...player, movies: [...player.movies, movie.title] },
         ...players.slice(index + 1),
       ])
+      alert('this movie was added to your Watchlist')
     }
   }
 
   function handleRemoveFromWatchlist(movie, currentUser) {
-    const player = players.find(player => player.name === currentUser.name)
-    const index = players.indexOf(player)
-    setFilterByGenres([
-      ...filterByGenres.slice(0, index),
-      { ...player, movies: [...player.movies, movie.title] },
-      ...filterByGenres.slice(index + 1),
-    ])
+    // const player = players.find(player => player.name === currentUser.name)
+    // const index = players.indexOf(player)
+    // setFilterByGenres([
+    //   ...filterByGenres.slice(0, index),
+    //   { ...player, movies: [...player.movies, movie.title] },
+    //   ...filterByGenres.slice(index + 1),
+    // ])
     //randomize or remove movie from WatchList --- CODE FOR FUTURE REFERENCE
     console.log('do not want to see this movie')
   }
@@ -134,9 +141,16 @@ export default function App() {
 
   function handleDelete(index) {
     setPlayers([...players.slice(0, index), ...players.slice(index + 1)])
+    setCurrentUser(players.id === [])
   }
 
-  // function handleComparison() {
-  //   players.forEach(movie => movie.filter(players.movies))
-  // }
+  function handleGenreReset() {
+    setFilterByGenres([])
+  }
+
+  function handleComparison() {
+    const allMovies = setPlayers(players.movies)
+
+    console.log(allMovies)
+  }
 }

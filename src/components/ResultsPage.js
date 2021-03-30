@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import Button from './Button/Button'
 import Header from './Header/Header'
 
-export default function ResultsPage(players) {
+export default function ResultsPage() {
   return (
     <>
       <Header name="Movie Picker" />

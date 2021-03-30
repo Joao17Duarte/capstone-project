@@ -11,6 +11,7 @@ export default function FilteredMoviesPage({
   onAddToWatchlist,
   onRemoveFromWatchlist,
   currentUser,
+  handleGenreReset,
 }) {
   const filteredMovies = movies.filter(
     movie =>
@@ -29,19 +30,20 @@ export default function FilteredMoviesPage({
           <MenuButton as={Link} to="/search">
             Search Page
           </MenuButton>
-          {/* <NextButton hidden={currentUser.movies.length <= 3}>
+          <NextButton as={Link} to="/" onClick={() => handleGenreReset}>
             Next User
-          </NextButton> */}
+          </NextButton>
         </ButtonWrapper>
-        {randomMovies(filteredMovies).map(movie => (
+        {filteredMovies.map(movie => (
           <Card
             title={movie.title}
+            release_date={movie.release_date}
             image={movie.poster_path}
             genresMovie={movie.genre_ids}
             allGenres={genres}
             key={movie.id}
-            onAddToWatchlist={e => onAddToWatchlist(movie, currentUser)}
-            onRemoveFromWatchlist={e =>
+            onAddToWatchlist={() => onAddToWatchlist(movie, currentUser)}
+            onRemoveFromWatchlist={() =>
               onRemoveFromWatchlist(movie, currentUser)
             }
           />
@@ -50,13 +52,13 @@ export default function FilteredMoviesPage({
     </>
   )
 
-  function randomMovies(movieArray) {
-    const randomFilteredMovies = movieArray.sort(
-      () => 0.5 - Math.floor(Math.random() * 5)
-    )
-    let randomizedMovies = randomFilteredMovies.slice(0, 5)
-    return randomizedMovies
-  }
+  // function randomMovies(movieArray) {
+  //   const randomFilteredMovies = movieArray.sort(
+  //     () => 0.5 - Math.floor(Math.random() * 5)
+  //   )
+  //   let randomizedMovies = randomFilteredMovies.slice(0, 5)
+  //   return randomizedMovies
+  // }
 }
 
 const FilterWrapper = styled.div`
@@ -73,7 +75,12 @@ const MenuButton = styled(Button)`
   border-radius: 10px;
   padding: 10px;
 `
-// const NextButton = styled(Button)`
-//   color: hotpink;
-//   background-color: #6d676e;
-// `
+const NextButton = styled(Button)`
+  color: white;
+  background-color: #6d676e;
+  opacity: 0.6;
+  box-shadow: 0px 0px 10px white;
+  position: fixed;
+  top: 350px;
+  right: 5px;
+`

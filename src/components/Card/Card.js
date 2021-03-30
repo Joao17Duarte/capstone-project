@@ -4,6 +4,7 @@ import Button from '../Button/Button'
 export default function Card({
   title,
   image,
+  release_date,
   genresMovie,
   allGenres,
   onRemoveFromWatchlist,
@@ -19,6 +20,7 @@ export default function Card({
     <>
       <CardGrid>
         <span>{title}</span>
+        <span>({release_date})</span>
         <Poster src={`${IMG_API}w185${image}`} alt="" />
         <GenreWrapper>
           {genresNames.map((genre, index) => (
