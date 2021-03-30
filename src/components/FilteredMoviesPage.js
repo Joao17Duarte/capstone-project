@@ -59,14 +59,6 @@ export default function FilteredMoviesPage({
       </FilterWrapper>
     </>
   )
-
-  // function randomMovies(movieArray) {
-  //   const randomFilteredMovies = movieArray.sort(
-  //     () => 0.5 - Math.floor(Math.random() * 5)
-  //   )
-  //   let randomizedMovies = randomFilteredMovies.slice(0, 5)
-  //   return randomizedMovies
-  // }
 }
 
 const FilterWrapper = styled.div`

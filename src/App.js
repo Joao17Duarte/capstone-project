@@ -109,15 +109,7 @@ export default function App() {
     }
   }
 
-  function handleRemoveFromWatchlist(movie, currentUser) {
-    // const player = players.find(player => player.name === currentUser.name)
-    // const index = players.indexOf(player)
-    // setFilterByGenres([
-    //   ...filterByGenres.slice(0, index),
-    //   { ...player, movies: [...player.movies, movie.title] },
-    //   ...filterByGenres.slice(index + 1),
-    // ])
-    //randomize or remove movie from WatchList --- CODE FOR FUTURE REFERENCE
+  function handleRemoveFromWatchlist() {
     console.log('do not want to see this movie')
   }
 
@@ -160,10 +152,5 @@ export default function App() {
       )
     }
     setResults(similarMovies[numberOfPlayers - 1])
-
-    // const allMovies = players.map(movie => players.movies)
-
-    // playe4rs.map()
-    //reduce
   }
 }
