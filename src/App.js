@@ -12,6 +12,7 @@ export default function App() {
   const [genres, setGenres] = useState([])
   const [filterByGenres, setFilterByGenres] = useState([])
   const [currentUser, setCurrentUser] = useState(players)
+  const [results, setResults] = useState([])
 
   const { REACT_APP_TMDB_API_KEY } = process.env
   let MOVIE_API
@@ -81,7 +82,10 @@ export default function App() {
           />
         </Route>
         <Route path="/results">
-          <ResultsPage movies={movies} onHandleComparison={handleComparison} />
+          <ResultsPage
+            results={results}
+            onHandleComparison={handleComparison}
+          />
         </Route>
       </Switch>
     </>
@@ -144,11 +148,19 @@ export default function App() {
   }
 
   function handleComparison() {
-    const similarMovies = players[0].movies.filter(movie =>
-      players[1].movies.includes(movie)
-    )
-    setMovies(similarMovies)
-    console.log(similarMovies)
+    const numberOfPlayers = players.length
+
+    let firstPlayerMovies = players[0].movies
+
+    let similarMovies = []
+
+    for (let i = 0; i < numberOfPlayers; i++) {
+      similarMovies.push(
+        firstPlayerMovies.filter(movie => players[i].movies.includes(movie))
+      )
+    }
+    setResults(similarMovies[numberOfPlayers - 1])
+
     // const allMovies = players.map(movie => players.movies)
 
     // playe4rs.map()

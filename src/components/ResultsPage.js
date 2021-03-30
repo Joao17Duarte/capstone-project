@@ -3,14 +3,16 @@ import styled from 'styled-components'
 import Button from './Button/Button'
 import Header from './Header/Header'
 
-export default function ResultsPage(movies) {
+export default function ResultsPage(results) {
   return (
     <>
       <Header name="Movie Picker" />
       <ResultsWrapper>
         Here are shown the Results from your Picks:
         <MovieList>
-          <MovieName>{movies}</MovieName>
+          {results.results.map((result, index) => (
+            <MovieName key={index}>{result}</MovieName>
+          ))}
         </MovieList>
       </ResultsWrapper>
       <ButtonWrapper>
