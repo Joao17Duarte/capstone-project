@@ -8,7 +8,7 @@ import ResultsPage from './components/ResultsPage'
 
 export default function App() {
   const [players, setPlayers] = useState([])
-  const [fetchMovies, setFetchMovies] = useState([])
+  const [movies, setMovies] = useState([])
   const [genres, setGenres] = useState([])
   const [filterByGenres, setFilterByGenres] = useState([])
   const [currentUser, setCurrentUser] = useState(players)
@@ -25,7 +25,7 @@ export default function App() {
       fetch(MOVIE_API)
         .then(res => res.json())
         .then(data => {
-          setFetchMovies(oldState => [...oldState, ...data.results])
+          setMovies(oldState => [...oldState, ...data.results])
         })
         .catch(error => {
           throw error
@@ -60,33 +60,28 @@ export default function App() {
 
         <Route path="/search">
           <SearchPage
-            labelText="Choose your Movie:"
-            placeholder="Movie Name"
             genres={genres}
             onSetGenre={handleSetGenre}
             filterByGenre={filterByGenres}
             currentUser={currentUser}
-            onHandleGenreReset={handleGenreReset}
           />
         </Route>
 
         <Route path="/filteredmovies">
           <FilteredMoviesPage
             filterByGenres={filterByGenres}
-            movies={fetchMovies}
+            movies={movies}
             genres={genres}
             currentUser={currentUser}
             players={players}
             onAddToWatchlist={handleAddToWatchlist}
             onRemoveFromWatchlist={handleRemoveFromWatchlist}
             onHandleGenreReset={handleGenreReset}
+            onHandleComparison={handleComparison}
           />
         </Route>
         <Route path="/results">
-          <ResultsPage
-            players={players}
-            onhandleComparison={handleComparison}
-          />
+          <ResultsPage movies={movies} onHandleComparison={handleComparison} />
         </Route>
       </Switch>
     </>
@@ -149,8 +144,14 @@ export default function App() {
   }
 
   function handleComparison() {
-    const allMovies = setPlayers(players.movies)
+    const similarMovies = players[0].movies.filter(movie =>
+      players[1].movies.includes(movie)
+    )
+    setMovies(similarMovies)
+    console.log(similarMovies)
+    // const allMovies = players.map(movie => players.movies)
 
-    console.log(allMovies)
+    // playe4rs.map()
+    //reduce
   }
 }

@@ -9,7 +9,6 @@ export default function SearchPage({
   onSetGenre,
   filterByGenre,
   currentUser,
-  handleGenreReset,
 }) {
   return (
     <>
@@ -19,7 +18,6 @@ export default function SearchPage({
         genres={genres}
         onSetGenre={onSetGenre}
         filterByGenre={filterByGenre}
-        onHandleGenreReset={handleGenreReset}
       />
 
       <ButtonWrapper>

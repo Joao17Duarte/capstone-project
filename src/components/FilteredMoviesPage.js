@@ -11,7 +11,8 @@ export default function FilteredMoviesPage({
   onAddToWatchlist,
   onRemoveFromWatchlist,
   currentUser,
-  handleGenreReset,
+  onHandleGenreReset,
+  onHandleComparison,
 }) {
   const filteredMovies = movies.filter(
     movie =>
@@ -30,7 +31,14 @@ export default function FilteredMoviesPage({
           <MenuButton as={Link} to="/search">
             Search Page
           </MenuButton>
-          <NextButton as={Link} to="/" onClick={() => handleGenreReset}>
+          <MenuButton
+            as={Link}
+            to="/results"
+            onClick={() => onHandleComparison()}
+          >
+            Results Page
+          </MenuButton>
+          <NextButton as={Link} to="/" onClick={() => onHandleGenreReset()}>
             Next User
           </NextButton>
         </ButtonWrapper>

@@ -11,6 +11,8 @@ body {
   background-color: #312f2f;
   color:white;
 }
+
+
 input,
 button {
   font-size: inherit;
