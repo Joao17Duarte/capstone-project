@@ -9,9 +9,10 @@ body {
   font-size: 112.5%;
   margin: 0 auto;
   background-color: #312f2f;
-  color:white
-
+  color:white;
 }
+
+
 input,
 button {
   font-size: inherit;

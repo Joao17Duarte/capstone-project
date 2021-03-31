@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import Button from './Button/Button'
 import FilterTag from './FilterTag/FilterTag'
 import Header from './Header/Header'
@@ -8,12 +8,12 @@ export default function SearchPage({
   genres,
   onSetGenre,
   filterByGenre,
-  userSelection,
+  currentUser,
 }) {
   return (
     <>
       <Header name="Movie Picker" />
-      <TagName userSelection={userSelection}>{userSelection[0].name}</TagName>
+      <TagName>{currentUser.name}</TagName>
       <FilterTag
         genres={genres}
         onSetGenre={onSetGenre}

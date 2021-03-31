@@ -24,7 +24,7 @@ export default function UserInput({ labelText, placeholder, onAddPlayer }) {
     const { playerName } = form.elements
 
     onAddPlayer({
-      nameOfPlayer:
+      name:
         playerName.value.slice(0, 1).toUpperCase() + playerName.value.slice(1),
     })
     form.reset()
