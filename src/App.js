@@ -77,7 +77,6 @@ export default function App() {
             currentUser={currentUser}
             players={players}
             onAddToWatchlist={handleAddToWatchlist}
-            onRemoveFromWatchlist={handleRemoveFromWatchlist}
             onHandleGenreReset={handleGenreReset}
             onHandleComparison={handleComparison}
           />
@@ -108,10 +107,6 @@ export default function App() {
       ])
       alert('this movie was added to your Watchlist')
     }
-  }
-
-  function handleRemoveFromWatchlist() {
-    console.log('do not want to see this movie')
   }
 
   function handleSetGenre(genre) {
@@ -154,15 +149,6 @@ export default function App() {
     const similarMovies = Object.entries(results)
       .filter(movie => movie[1] === numberOfPlayers)
       .map(movie => movie[0])
-
-    // let similarMovies = [[...players[0].movies]]
-    // console.log('similarMovies ', similarMovies)
-
-    // for (let i = 0; i < numberOfPlayers; i++) {
-    //   similarMovies.push(
-    //     similarMovies[i].filter(movie => players[i].movies.includes(movie))
-    //   )
-    // }
     setResults(similarMovies)
   }
 }

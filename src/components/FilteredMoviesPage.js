@@ -9,7 +9,7 @@ export default function FilteredMoviesPage({
   filterByGenres,
   genres,
   onAddToWatchlist,
-  onRemoveFromWatchlist,
+
   currentUser,
   onHandleGenreReset,
   onHandleComparison,
@@ -24,24 +24,6 @@ export default function FilteredMoviesPage({
     <>
       <FilterWrapper>
         <Header name="Movie Picker" />
-        <ButtonWrapper>
-          <MenuButton as={Link} to="/">
-            Home
-          </MenuButton>
-          <MenuButton as={Link} to="/search">
-            Search Page
-          </MenuButton>
-          <MenuButton
-            as={Link}
-            to="/results"
-            onClick={() => onHandleComparison()}
-          >
-            Results Page
-          </MenuButton>
-          <NextButton as={Link} to="/" onClick={() => onHandleGenreReset()}>
-            Next User
-          </NextButton>
-        </ButtonWrapper>
         {filteredMovies.map(movie => (
           <Card
             title={movie.title}
@@ -51,11 +33,26 @@ export default function FilteredMoviesPage({
             allGenres={genres}
             key={movie.id}
             onAddToWatchlist={() => onAddToWatchlist(movie, currentUser)}
-            onRemoveFromWatchlist={() =>
-              onRemoveFromWatchlist(movie, currentUser)
-            }
           />
         ))}
+        <ButtonWrapper>
+          <MenuButton as={Link} to="/">
+            Home
+          </MenuButton>
+          <MenuButton as={Link} to="/search">
+            Search
+          </MenuButton>
+          <MenuButton
+            as={Link}
+            to="/results"
+            onClick={() => onHandleComparison()}
+          >
+            Results
+          </MenuButton>
+          <MenuButton as={Link} to="/" onClick={() => onHandleGenreReset()}>
+            Next User
+          </MenuButton>
+        </ButtonWrapper>
       </FilterWrapper>
     </>
   )
@@ -66,21 +63,21 @@ const FilterWrapper = styled.div`
   margin-bottom: 50px;
 `
 const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  align-items: stretch;
+  align-content: center;
+  background-color: #6d676e;
+  padding: 5px;
+  bottom: 0;
+
   text-align: center;
-  margin: 35px;
 `
 const MenuButton = styled(Button)`
-  background-color: #6d676e;
+  background: transparent;
   color: white;
   border-radius: 10px;
   padding: 10px;
-`
-const NextButton = styled(Button)`
-  color: white;
-  background-color: #6d676e;
-  opacity: 0.6;
-  box-shadow: 0px 0px 10px white;
-  position: fixed;
-  top: 350px;
-  right: 5px;
 `
