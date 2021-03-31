@@ -22,11 +22,11 @@ const PlayerWrapper = styled.div`
   justify-self: center;
   align-content: center;
   margin: 20px auto;
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #eee;
   background: snow;
-  width: 95%;
+  width: 300px;
 `
 const PlayerName = styled.div`
   display: flex;

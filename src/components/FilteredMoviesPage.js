@@ -24,6 +24,7 @@ export default function FilteredMoviesPage({
     <>
       <FilterWrapper>
         <Header name="Movie Picker" />
+
         {filteredMovies.map(movie => (
           <Card
             title={movie.title}

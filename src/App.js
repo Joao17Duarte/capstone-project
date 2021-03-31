@@ -96,36 +96,48 @@ export default function App() {
   function handleAddToWatchlist(movie, currentUser) {
     const player = players.find(player => player.name === currentUser.name)
     const index = players.indexOf(player)
-
-    const isMovieInState = player.movies.includes(movie.title)
-
-    if (isMovieInState) {
-      toast.error('This movie is already in your list!', {
+    if (player === undefined) {
+      toast.error('First add a Player', {
         style: {
           reverseOrder: false,
           position: 'top-center',
-          border: '1px solid black',
-          marginTop: '130px',
+          border: '1px solid red',
+          marginTop: '325px',
           fontFamily: 'Montserrat',
         },
         icon: '🚨',
       })
     } else {
-      setPlayers([
-        ...players.slice(0, index),
-        { ...player, movies: [...player.movies, movie.title] },
-        ...players.slice(index + 1),
-      ])
-      toast.success('Movie added to your list!', {
-        style: {
-          reverseOrder: false,
-          position: 'top-center',
-          border: '1px solid black',
-          marginTop: '325px',
-          fontFamily: 'Montserrat',
-        },
-        icon: '🎬',
-      })
+      const isMovieInState = player.movies.includes(movie.title)
+
+      if (isMovieInState) {
+        toast.error('This movie is already in your list!', {
+          style: {
+            reverseOrder: false,
+            position: 'top-center',
+            border: '1px solid black',
+            marginTop: '325px',
+            fontFamily: 'Montserrat',
+          },
+          icon: '🚨',
+        })
+      } else {
+        setPlayers([
+          ...players.slice(0, index),
+          { ...player, movies: [...player.movies, movie.title] },
+          ...players.slice(index + 1),
+        ])
+        toast.success('Movie added to your list!', {
+          style: {
+            reverseOrder: false,
+            position: 'top-center',
+            border: '1px solid black',
+            marginTop: '325px',
+            fontFamily: 'Montserrat',
+          },
+          icon: '🎬',
+        })
+      }
     }
   }
 
@@ -139,6 +151,7 @@ export default function App() {
 
   function addPlayer(player) {
     setPlayers([{ id: uuidv4(), ...player, movies: [] }, ...players])
+    setCurrentUser(player)
   }
 
   function handleSelection(name) {
