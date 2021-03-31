@@ -11,8 +11,9 @@ export default function UserInput({ labelText, placeholder, onAddPlayer }) {
           required
           placeholder={placeholder}
           type="text"
-          minLength="3"
+          minLength="2"
           maxLength="20"
+          autoComplete="off"
         />
       </label>
       <AddButton>Add Name</AddButton>

@@ -19,21 +19,34 @@ export default function ResultsPage(results) {
         <MenuButton as={Link} to="/">
           Home
         </MenuButton>
+        <MenuButton as={Link} to="/search">
+          Search
+        </MenuButton>
       </ButtonWrapper>
     </>
   )
 }
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  align-items: stretch;
+  align-content: center;
+  background-color: #6d676e;
+  padding: 5px;
+  bottom: 0;
+
   text-align: center;
-  margin-top: 35px;
 `
 const MenuButton = styled(Button)`
-  background-color: #6d676e;
+  background: transparent;
   color: white;
   border-radius: 10px;
   padding: 10px;
 `
+
 const ResultsWrapper = styled.section`
   margin: 10px;
   padding: 10px;

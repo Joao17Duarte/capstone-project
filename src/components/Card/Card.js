@@ -7,7 +7,7 @@ export default function Card({
   release_date,
   genresMovie,
   allGenres,
-  onRemoveFromWatchlist,
+
   onAddToWatchlist,
 }) {
   const IMG_API = 'https://image.tmdb.org/t/p/'
@@ -28,8 +28,7 @@ export default function Card({
           ))}
         </GenreWrapper>
         <ButtonWrapper>
-          <NoButton onClick={onRemoveFromWatchlist}>NO</NoButton>
-          <YesButton onClick={onAddToWatchlist}>YES</YesButton>
+          <YesButton onClick={onAddToWatchlist}>Add Movie</YesButton>
         </ButtonWrapper>
       </CardGrid>
     </>
@@ -52,6 +51,7 @@ const Poster = styled.img`
   box-shadow: 0px 0px 10px black;
   margin: auto;
 `
+
 const GenreWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -62,13 +62,7 @@ const GenreWrapper = styled.div`
 const ButtonWrapper = styled.div`
   text-align: center;
 `
-const NoButton = styled(Button)`
-  background: crimson;
-  color: white;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px red;
-  padding: 10px 50px;
-`
+
 const YesButton = styled(Button)`
   background: forestgreen;
   color: white;

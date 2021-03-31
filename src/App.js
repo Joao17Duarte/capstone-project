@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import toast, { Toaster } from 'react-hot-toast'
 import SearchPage from './components/SearchPage'
 import FilteredMoviesPage from './components/FilteredMoviesPage'
 import HomePage from './components/HomePage'
@@ -70,6 +71,7 @@ export default function App() {
         </Route>
 
         <Route path="/filteredmovies">
+          <Toaster />
           <FilteredMoviesPage
             filterByGenres={filterByGenres}
             movies={movies}
@@ -77,7 +79,6 @@ export default function App() {
             currentUser={currentUser}
             players={players}
             onAddToWatchlist={handleAddToWatchlist}
-            onRemoveFromWatchlist={handleRemoveFromWatchlist}
             onHandleGenreReset={handleGenreReset}
             onHandleComparison={handleComparison}
           />
@@ -99,19 +100,33 @@ export default function App() {
     const isMovieInState = player.movies.includes(movie.title)
 
     if (isMovieInState) {
-      alert('this movie is already added')
+      toast.error('This movie is already in your list!', {
+        style: {
+          reverseOrder: false,
+          position: 'top-center',
+          border: '1px solid black',
+          marginTop: '130px',
+          fontFamily: 'Montserrat',
+        },
+        icon: '🚨',
+      })
     } else {
       setPlayers([
         ...players.slice(0, index),
         { ...player, movies: [...player.movies, movie.title] },
         ...players.slice(index + 1),
       ])
-      alert('this movie was added to your Watchlist')
+      toast.success('Movie added to your list!', {
+        style: {
+          reverseOrder: false,
+          position: 'top-center',
+          border: '1px solid black',
+          marginTop: '325px',
+          fontFamily: 'Montserrat',
+        },
+        icon: '🎬',
+      })
     }
-  }
-
-  function handleRemoveFromWatchlist() {
-    console.log('do not want to see this movie')
   }
 
   function handleSetGenre(genre) {
@@ -154,15 +169,6 @@ export default function App() {
     const similarMovies = Object.entries(results)
       .filter(movie => movie[1] === numberOfPlayers)
       .map(movie => movie[0])
-
-    // let similarMovies = [[...players[0].movies]]
-    // console.log('similarMovies ', similarMovies)
-
-    // for (let i = 0; i < numberOfPlayers; i++) {
-    //   similarMovies.push(
-    //     similarMovies[i].filter(movie => players[i].movies.includes(movie))
-    //   )
-    // }
     setResults(similarMovies)
   }
 }
