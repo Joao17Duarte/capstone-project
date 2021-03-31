@@ -15,24 +15,25 @@ export default function App() {
   const [results, setResults] = useState([])
 
   const { REACT_APP_TMDB_API_KEY } = process.env
-  let MOVIE_API
   const GENRE_API = `https://api.themoviedb.org/3/genre/movie/list?api_key=${REACT_APP_TMDB_API_KEY}&language=en-US`
 
   useEffect(() => {
+    const promisesFromFetch = []
     for (let i = 1; i <= 5; i++) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      MOVIE_API = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${REACT_APP_TMDB_API_KEY}&page=${i}`
+      const MOVIE_API = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${REACT_APP_TMDB_API_KEY}&page=${i}`
 
-      fetch(MOVIE_API)
-        .then(res => res.json())
-        .then(data => {
-          setMovies(oldState => [...oldState, ...data.results])
-        })
-        .catch(error => {
-          throw error
-        })
+      promisesFromFetch.push(fetch(MOVIE_API).then(res => res.json()))
     }
-  }, [MOVIE_API])
+    Promise.all(promisesFromFetch)
+      .then(dataList =>
+        setMovies([...movies, ...dataList.flatMap(data => data.results)])
+      )
+      .catch(error => {
+        throw error
+      })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     fetch(GENRE_API)
@@ -142,15 +143,26 @@ export default function App() {
   function handleComparison() {
     const numberOfPlayers = players.length
 
-    let firstPlayerMovies = players[0].movies
+    const results = players
+      .map(p => p.movies)
+      .flat()
+      .reduce((acc, title) => {
+        acc[title] ? acc[title]++ : (acc[title] = 1)
+        return acc
+      }, {})
 
-    let similarMovies = []
+    const similarMovies = Object.entries(results)
+      .filter(movie => movie[1] === numberOfPlayers)
+      .map(movie => movie[0])
 
-    for (let i = 0; i < numberOfPlayers; i++) {
-      similarMovies.push(
-        firstPlayerMovies.filter(movie => players[i].movies.includes(movie))
-      )
-    }
-    setResults(similarMovies[numberOfPlayers - 1])
+    // let similarMovies = [[...players[0].movies]]
+    // console.log('similarMovies ', similarMovies)
+
+    // for (let i = 0; i < numberOfPlayers; i++) {
+    //   similarMovies.push(
+    //     similarMovies[i].filter(movie => players[i].movies.includes(movie))
+    //   )
+    // }
+    setResults(similarMovies)
   }
 }
