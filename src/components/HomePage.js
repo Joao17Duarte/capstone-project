@@ -52,6 +52,6 @@ const MenuButton = styled(Button)`
 const Subtitle = styled.span`
   display: flex;
   justify-content: center;
-  font-size: 0.6rem;
-  opacity: 0.9;
+  font-size: 0.7rem;
+  margin-bottom: 30px;
 `

@@ -39,11 +39,12 @@ const CardGrid = styled.div`
   display: grid;
   text-align: center;
   justify-content: center;
-  margin: 20px 10px;
+  margin: 20px auto;
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #ddd;
+  max-width: 350px;
 `
 
 const Poster = styled.img`

@@ -8,12 +8,20 @@ export default function ResultsPage(results) {
     <>
       <Header name="Movie Picker" />
       <ResultsWrapper>
-        Here are shown the Results from your Picks:
-        <MovieList>
-          {results.results.map((result, index) => (
-            <MovieName key={index}>{result}</MovieName>
-          ))}
-        </MovieList>
+        The Results from your Picks:
+        {results.results.length !== 0 ? (
+          <>
+            <MovieList>
+              {results.results.map((result, index) => (
+                <MovieName key={index}>{result}</MovieName>
+              ))}
+            </MovieList>
+            <Text>Have Fun !!</Text>
+            <Text>Don't forget the 🍿</Text>
+          </>
+        ) : (
+          <NoMatchText>Sorry no Match Found</NoMatchText>
+        )}
       </ResultsWrapper>
       <ButtonWrapper>
         <MenuButton as={Link} to="/">
@@ -63,7 +71,6 @@ const MovieList = styled.div`
   box-shadow: 0px 0px 10px #eee;
   background: transparent;
   text-align: center;
-  width: 300px;
 `
 const MovieName = styled.p`
   display: flex;
@@ -71,4 +78,18 @@ const MovieName = styled.p`
   text-decoration: none;
   color: gold;
   text-align: center;
+`
+const Text = styled.span`
+  display: grid;
+  gap: 10px;
+  text-align: center;
+  margin: 10px;
+`
+const NoMatchText = styled.span`
+  display: grid;
+  gap: 10px;
+  text-align: center;
+  margin: 50px;
+  color: gold;
+  font-size: 2rem;
 `
