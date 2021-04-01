@@ -28,7 +28,7 @@ export default function Card({
           ))}
         </GenreWrapper>
         <ButtonWrapper>
-          <YesButton onClick={onAddToWatchlist}>Add Movie</YesButton>
+          <AddButton onClick={onAddToWatchlist}>Add Movie</AddButton>
         </ButtonWrapper>
       </CardGrid>
     </>
@@ -64,7 +64,7 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `
 
-const YesButton = styled(Button)`
+const AddButton = styled(Button)`
   background: forestgreen;
   color: white;
   border-radius: 10px;
