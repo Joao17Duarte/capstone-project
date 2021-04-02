@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from './Button/Button'
-import Header from './Header/Header'
 
 export default function ResultsPage(results) {
   return (
     <>
-      <Header name="Movie Picker" />
       <ResultsWrapper>
         The Results from your Picks:
         {results.results.length !== 0 ? (
@@ -20,7 +18,7 @@ export default function ResultsPage(results) {
             <Text>Don't forget the 🍿</Text>
           </>
         ) : (
-          <NoMatchText>Sorry no Match Found</NoMatchText>
+          <NoMatchText>Sorry no Match Found 😱 </NoMatchText>
         )}
       </ResultsWrapper>
       <ButtonWrapper>

@@ -6,6 +6,8 @@ import SearchPage from './components/SearchPage'
 import FilteredMoviesPage from './components/FilteredMoviesPage'
 import HomePage from './components/HomePage'
 import ResultsPage from './components/ResultsPage'
+import LoadingPage from './components/LoadingPage'
+import Header from './components/Header/Header'
 
 export default function App() {
   const [players, setPlayers] = useState([])
@@ -14,6 +16,7 @@ export default function App() {
   const [filterByGenres, setFilterByGenres] = useState([])
   const [currentUser, setCurrentUser] = useState(players)
   const [results, setResults] = useState([])
+  const [hideContent, setHideContent] = useState(false)
 
   const { REACT_APP_TMDB_API_KEY } = process.env
   const GENRE_API = `https://api.themoviedb.org/3/genre/movie/list?api_key=${REACT_APP_TMDB_API_KEY}&language=en-US`
@@ -49,8 +52,14 @@ export default function App() {
 
   return (
     <>
+      <Header name="Movie Picker" />
       <Switch>
         <Route exact path="/">
+          <LoadingPage
+            done="100"
+            hideLoadingPage={hideContent}
+            setHideLoadingPage={setHideContent}
+          />
           <HomePage
             labelText="Insert your Names:"
             placeholder="John Doe"

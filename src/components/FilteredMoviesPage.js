@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Button from './Button/Button'
 import Card from './Card/Card'
-import Header from './Header/Header'
 
 export default function FilteredMoviesPage({
   movies,
@@ -22,8 +21,6 @@ export default function FilteredMoviesPage({
   return (
     <>
       <FilterWrapper>
-        <Header name="Movie Picker" />
-
         {filteredMovies.map(movie => (
           <Card
             title={movie.title}
