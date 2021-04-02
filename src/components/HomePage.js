@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Button from './Button/Button'
-
-import Header from './Header/Header'
 import User from './User/User'
 import UserInput from './UserInput/UserInput'
+
 export default function HomePage({
   players,
   addPlayer,
   onHandleDelete,
   onHandleSelection,
+  currentUser,
 }) {
   return (
     <>
-      <Header name="Movie Picker" />
-
       <UserInput
         labelText="Insert your Names:"
         placeholder="John Doe"
@@ -27,12 +25,13 @@ export default function HomePage({
           name={name}
           onHandleDelete={() => onHandleDelete(index)}
           onHandleSelection={() => onHandleSelection(name)}
+          currentUser={currentUser}
         />
       ))}
       <Subtitle>(Click the player name to start a search)</Subtitle>
       <ButtonWrapper>
         <MenuButton as={Link} to="/search">
-          Click here to Search for Movies
+          Click here to Search for 🎬
         </MenuButton>
       </ButtonWrapper>
     </>

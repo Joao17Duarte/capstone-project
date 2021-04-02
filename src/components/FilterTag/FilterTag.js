@@ -31,4 +31,6 @@ const TagsWrapper = styled.div`
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
+  max-width: 600px;
+  margin: auto;
 `
