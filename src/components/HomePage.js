@@ -10,6 +10,7 @@ export default function HomePage({
   addPlayer,
   onHandleDelete,
   onHandleSelection,
+  currentUser,
 }) {
   return (
     <>
@@ -27,6 +28,7 @@ export default function HomePage({
           name={name}
           onHandleDelete={() => onHandleDelete(index)}
           onHandleSelection={() => onHandleSelection(name)}
+          currentUser={currentUser}
         />
       ))}
       <Subtitle>(Click the player name to start a search)</Subtitle>

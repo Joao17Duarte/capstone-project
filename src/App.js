@@ -58,6 +58,7 @@ export default function App() {
             players={players}
             onHandleDelete={handleDelete}
             onHandleSelection={handleSelection}
+            currentUser={currentUser}
           />
         </Route>
 

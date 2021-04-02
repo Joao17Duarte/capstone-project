@@ -9,7 +9,6 @@ export default function FilteredMoviesPage({
   filterByGenres,
   genres,
   onAddToWatchlist,
-
   currentUser,
   onHandleGenreReset,
   onHandleComparison,
