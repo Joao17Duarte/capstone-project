@@ -12,4 +12,5 @@ const HeaderApp = styled.header`
   background: #333;
   padding: 20px;
   margin-bottom: 20px;
+  z-index: 1
 `
